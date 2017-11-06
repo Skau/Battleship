@@ -4,3 +4,7 @@ Player::Player()
 {
 
 }
+
+void Player::printStuff()
+{
+}

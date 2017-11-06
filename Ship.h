@@ -6,6 +6,12 @@ class Ship
 {
 public:
     Ship();
+
+private:
+
+    int size;
+    int numberPerPlayer;
+
 };
 
 #endif // SHIP_H

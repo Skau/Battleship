@@ -19,11 +19,13 @@ SOURCES += main.cpp \
     Player.cpp \
     HumanPlayer.cpp \
     AiPlayer.cpp \
-    Ship.cpp
+    Ship.cpp \
+    Map.cpp
 
 HEADERS += \
     Game.h \
     Player.h \
     HumanPlayer.h \
     AiPlayer.h \
-    Ship.h
+    Ship.h \
+    Map.h
