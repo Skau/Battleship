@@ -14,15 +14,15 @@ public:
     Map map;
 
     void initializeGame();
+    void placeShips();
+    void fireShot();
     void gameLoop();
 
-private:
 
+private:
+    int currentPlayer = 0;
     int inputX;
     char inputY;
-    char hit = 'H';
-    char miss = 'M';
-
 };
 
 #endif // GAME_H

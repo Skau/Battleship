@@ -7,28 +7,129 @@ Map::Map()
     {
         for(int j = 0; j < 10; j++)
         {
-
-            mapArea[i][j] = ' ';
+            mapArea[i][j].element = defaultSpace;
+            mapArea[i][j].bHasBeenShotAt = false;
+            mapArea[i][j].bIsPlayer = false;
+            mapArea[i][j].bIsShip = false;
         }
 
     }
 }
 
-void Map::setInMap(char yPos, int xPos, char element)
+void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int size, bool player)
 {
-    int ypos;
-    if (yPos == 'a'){ypos = 0;}
-    if (yPos == 'b'){ypos = 1;}
-    if (yPos == 'c'){ypos = 2;}
-    if (yPos == 'd'){ypos = 3;}
-    if (yPos == 'e'){ypos = 4;}
-    if (yPos == 'f'){ypos = 5;}
-    if (yPos == 'g'){ypos = 6;}
-    if (yPos == 'h'){ypos = 7;}
-    if (yPos == 'i'){ypos = 8;}
-    if (yPos == 'j'){ypos = 9;}
+    bool horizontal = direction;
+    bool isPlayer = player;
+    int ypos = yPos-97;
+    int count = 0;
 
-    mapArea[xPos][ypos] = element;
+    if (horizontal == true)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (mapArea[xPos+i][ypos].element == defaultSpace)
+            {
+                count++;
+            }
+        }
+        if (count == size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                mapArea[xPos+i][ypos].element = element;
+                mapArea[xPos+i][ypos].bIsPlayer = isPlayer;
+            }
+            bIsPlacementGood = true;
+        }
+        else
+        {
+            count = 0;
+            for (int i = 0; i < size; i++)
+            {
+                if (mapArea[xPos-i][ypos].element == defaultSpace)
+                {
+                    count++;
+                }
+            }
+            if (count == size)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    mapArea[xPos-i][ypos].element = element;
+                    mapArea[xPos-i][ypos].bIsPlayer = isPlayer;
+                }
+                bIsPlacementGood = true;
+            }
+            else
+            {
+                bIsPlacementGood = false;
+            }
+        }
+    }
+    else
+    {
+        count = 0;
+        for (int i = 0; i < size; i++)
+        {
+            if (mapArea[xPos][ypos+i].element == defaultSpace)
+            {
+                count++;
+            }
+        }
+        if (count == size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                mapArea[xPos][ypos+i].element = element;
+                mapArea[xPos][ypos+i].bIsPlayer = isPlayer;
+            }
+            bIsPlacementGood = true;
+        }
+        else
+        {
+            count = 0;
+            for (int i = 0; i < size; i++)
+            {
+                if (mapArea[xPos][ypos-i].element == defaultSpace)
+                {
+                    count++;
+                }
+            }
+            if (count == size)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    mapArea[xPos][ypos-i].element = element;
+                    mapArea[xPos][ypos-i].bIsPlayer = isPlayer;
+                }
+                bIsPlacementGood = true;
+            }
+            else
+            {
+                bIsPlacementGood = false;
+            }
+        }
+    }
+}
+
+void Map::placeShotInMap(char yPos, int xPos)
+{
+    int ypos = yPos-97;
+    if (mapArea[xPos][ypos].element != defaultSpace)
+    {
+        if ((mapArea[xPos][ypos].element != hit) && (mapArea[xPos][ypos].element != miss))
+        {
+            mapArea[xPos][ypos].element = hit;
+        }
+        else
+        {
+            std::cout << "Already hit this spot.\n";
+        }
+    }
+    else
+    {
+        mapArea[xPos][ypos].element = miss;
+    }
 }
 
 void Map::printMap()
@@ -41,7 +142,7 @@ void Map::printMap()
         std::cout << " " << i << " | ";
         for (int j = 0; j < 10; j++)
         {
-            std::cout << mapArea[i][j] << " | ";
+            std::cout << mapArea[i][j].element << " | ";
         }
         std::cout << "\n   +---------------------------------------+" << std::endl;
     }

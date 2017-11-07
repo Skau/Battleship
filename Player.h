@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <iostream>
+#include <vector>
 #include "Ship.h"
 
 class Player
@@ -8,13 +9,12 @@ class Player
 public:
     Player();
 
-    void printStuff();
+    void initializeShip(std::string nameOfShip, char picture, int shipSize, int number);
 
-protected:
-    Ship battleship; //size 4, 1 per player
-    Ship cruiser;    // size 3, 2 per player
-    Ship destroyer;  //size 2, 3 per player
-    Ship submarine; //size 1, 4 per player
+    std::vector<Ship*> v_Ships;
+
+private:
+    int count = 0;
 };
 
 #endif // PLAYER_H
