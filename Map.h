@@ -21,10 +21,8 @@ public:
     void printMap();
 
     mapElements mapArea[10][10];
+
     bool bIsPlacementGood = true;
-
-
-
 
 private:
     char defaultSpace = ' ';

@@ -12,22 +12,21 @@ Map::Map()
             mapArea[i][j].bIsPlayer = false;
             mapArea[i][j].bIsShip = false;
         }
-
     }
 }
 
 void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int size, bool player)
 {
-    bool horizontal = direction;
     bool isPlayer = player;
     int ypos = yPos-97;
     int count = 0;
 
-    if (horizontal == true)
+    //true = horizontal
+    if (direction)
     {
         for (int i = 0; i < size; i++)
         {
-            if (mapArea[xPos+i][ypos].element == defaultSpace)
+            if ((!mapArea[xPos][ypos+i].bIsShip) && (mapArea[xPos][ypos+i].element == defaultSpace))
             {
                 count++;
             }
@@ -36,8 +35,9 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
         {
             for (int i = 0; i < size; i++)
             {
-                mapArea[xPos+i][ypos].element = element;
-                mapArea[xPos+i][ypos].bIsPlayer = isPlayer;
+                mapArea[xPos][ypos+i].element = element;
+                mapArea[xPos][ypos+i].bIsPlayer = isPlayer;
+                mapArea[xPos][ypos+i].bIsShip = true;
             }
             bIsPlacementGood = true;
         }
@@ -46,7 +46,7 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
             count = 0;
             for (int i = 0; i < size; i++)
             {
-                if (mapArea[xPos-i][ypos].element == defaultSpace)
+                if ((!mapArea[xPos][ypos-i].bIsShip) && (mapArea[xPos][ypos-i].element == defaultSpace))
                 {
                     count++;
                 }
@@ -55,8 +55,9 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
             {
                 for (int i = 0; i < size; i++)
                 {
-                    mapArea[xPos-i][ypos].element = element;
-                    mapArea[xPos-i][ypos].bIsPlayer = isPlayer;
+                    mapArea[xPos][ypos-i].element = element;
+                    mapArea[xPos][ypos-i].bIsPlayer = isPlayer;
+                    mapArea[xPos][ypos-i].bIsShip = true;
                 }
                 bIsPlacementGood = true;
             }
@@ -71,7 +72,7 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
         count = 0;
         for (int i = 0; i < size; i++)
         {
-            if (mapArea[xPos][ypos+i].element == defaultSpace)
+            if ((!mapArea[xPos+i][ypos].bIsShip) && (mapArea[xPos+i][ypos].element == defaultSpace))
             {
                 count++;
             }
@@ -80,8 +81,9 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
         {
             for (int i = 0; i < size; i++)
             {
-                mapArea[xPos][ypos+i].element = element;
-                mapArea[xPos][ypos+i].bIsPlayer = isPlayer;
+                mapArea[xPos+i][ypos].element = element;
+                mapArea[xPos+i][ypos].bIsPlayer = isPlayer;
+                mapArea[xPos+i][ypos].bIsShip = true;
             }
             bIsPlacementGood = true;
         }
@@ -90,7 +92,7 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
             count = 0;
             for (int i = 0; i < size; i++)
             {
-                if (mapArea[xPos][ypos-i].element == defaultSpace)
+                if ((!mapArea[xPos-i][ypos].bIsShip) && (mapArea[xPos-i][ypos].element == defaultSpace))
                 {
                     count++;
                 }
@@ -99,8 +101,9 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
             {
                 for (int i = 0; i < size; i++)
                 {
-                    mapArea[xPos][ypos-i].element = element;
-                    mapArea[xPos][ypos-i].bIsPlayer = isPlayer;
+                    mapArea[xPos-i][ypos].element = element;
+                    mapArea[xPos-i][ypos].bIsPlayer = isPlayer;
+                    mapArea[xPos-i][ypos].bIsShip = true;
                 }
                 bIsPlacementGood = true;
             }
@@ -117,18 +120,20 @@ void Map::placeShotInMap(char yPos, int xPos)
     int ypos = yPos-97;
     if (mapArea[xPos][ypos].element != defaultSpace)
     {
-        if ((mapArea[xPos][ypos].element != hit) && (mapArea[xPos][ypos].element != miss))
+        if (!mapArea[xPos][ypos].bHasBeenShotAt)
         {
             mapArea[xPos][ypos].element = hit;
+            mapArea[xPos][ypos].bHasBeenShotAt = true;
         }
         else
         {
-            std::cout << "Already hit this spot.\n";
+            std::cout << "Already been fired at.\n";
         }
     }
     else
     {
         mapArea[xPos][ypos].element = miss;
+        mapArea[xPos][ypos].bHasBeenShotAt = true;
     }
 }
 

@@ -8,62 +8,14 @@ Game::Game()
 
 void Game::initializeGame()
 {
+    system("cls");
+    human.map.printMap();
     placeShips();
 }
 
 void Game::placeShips()
 {
-    int input;
-    bool direction;
-    bool isPlayer = true;
-    bool bisChoosing = true;
 
-    for (auto ship : human.v_Ships)
-    {
-        bisChoosing = true;
-        input = 0;
-        while (bisChoosing)
-        {
-            system("cls");
-            map.printMap();
-            if (map.bIsPlacementGood==false){std::cout << "Space occupied\n";}
-            std::cout << "Where do you want to place your " << ship->name << "? (Size of ship: " << ship->size << ")\n";
-            std::cout << "Total number of this ship to place: " << ship->numberPerPlayer << ".\nExample of placement: B3\n";
-            std::cin >> inputY >> inputX;
-            if (ship->size > 1)
-            {
-                std::cout << "1. Horizontal or 2. Vertical?: \n";
-                std::cin >> input;
-            }
-            if (input == 1 && input == 0){direction = true;}else{direction = false;}
-            map.placeShipInMap(inputY,inputX,ship->symbol,direction,ship->size,isPlayer);
-            if (map.bIsPlacementGood==true)
-            {
-                bisChoosing=false;
-                if (input == 1)
-                {
-                    ship->startXPos=inputX;
-                    ship->endXPos=inputX+ship->size;
-                }
-                else
-                {
-                    ship->startYPos=inputY;
-                    ship->endYPos=inputY+ship->size;
-                }
-            }
-            else
-            {
-                bisChoosing=true;
-            }
-        }
-    }
-}
-
-void Game::fireShot()
-{
-    std::cout << "Where do you want to shoot? Example:B3\n";
-    std::cin >> inputY >> inputX;
-    map.placeShotInMap(inputY,inputX);
 }
 
 void Game::gameLoop()
@@ -72,9 +24,12 @@ void Game::gameLoop()
 
     while (bisChoosing)
     {
-        fireShot();
+        human.placeShips();
+        human.fireShot();
+        human.map.placeShotInMap(human.getYPos(), human.getXPos());
         system("cls");
-        map.printMap();
+        std::cout << "You have " << human.totalShips << " ships left.\n";
+        human.map.printMap();
     }
 }
 

@@ -6,6 +6,8 @@ class AiPlayer : public Player
 {
 public:
     AiPlayer();
+
+    void placeShips();
 };
 
 #endif // APPLAYER_H

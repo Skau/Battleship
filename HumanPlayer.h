@@ -6,6 +6,8 @@ class HumanPlayer : public Player
 {
 public:
     HumanPlayer();
+
+    void placeShips();
 };
 
 #endif // HUMANPLAYER_H

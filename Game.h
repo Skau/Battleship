@@ -11,11 +11,9 @@ public:
 
     AiPlayer ai;
     HumanPlayer human;
-    Map map;
 
     void initializeGame();
     void placeShips();
-    void fireShot();
     void gameLoop();
 
 
