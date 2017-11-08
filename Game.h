@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>
+#include <vector>
 #include "AiPlayer.h"
 #include "HumanPlayer.h"
 #include "Map.h"
@@ -13,7 +14,7 @@ public:
     HumanPlayer human;
 
     void initializeGame();
-    void placeShips();
+    void damageShip(bool bDidDamage, bool isPlayer, char yPos, int xPos);
     void gameLoop();
 
 
@@ -21,6 +22,7 @@ private:
     int currentPlayer = 0;
     int inputX;
     char inputY;
+    bool bIsShooting;
 };
 
 #endif // GAME_H

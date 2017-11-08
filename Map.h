@@ -7,18 +7,17 @@ class Map
 public:
     Map();
 
-
     struct mapElements
     {
         char element;
         bool bIsShip;
-        bool bIsPlayer;
         bool bHasBeenShotAt;
     };
 
-    void placeShipInMap(char yPos, int xPos, char element, bool direction, int size, bool player);
-    void placeShotInMap(char yPos, int xPos);
-    void printMap();
+    void initializeMap();
+    void placeShipInMap(char yPos, int xPos, char element, bool direction, int size);
+    bool placeShotInMap(char yPos, int xPos);
+    void printMap(bool printShips);
 
     mapElements mapArea[10][10];
 
