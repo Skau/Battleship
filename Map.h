@@ -7,28 +7,33 @@ class Map
 public:
     Map();
 
+    //functions
+    void initializeMap();
+    void placeShotInMap(char yPos, int xPos);
+    void printMap(bool printShips);
+    void placeShipInMap(char yPos, int xPos, char element, bool direction, int size);
+
+    //variables
+    bool bIsPlacementGood = true;
+    bool bIsHit;
+    bool bIsHitShip;
+
+private:
+
+    //variables
     struct mapElements
     {
         char element;
         bool bIsShip;
         bool bHasBeenShotAt;
-    };
+    }; mapElements mapArea[10][10];
 
-    void initializeMap();
-    void placeShipInMap(char yPos, int xPos, char element, bool direction, int size);
-    bool placeShotInMap(char yPos, int xPos);
-    void printMap(bool printShips);
-
-    mapElements mapArea[10][10];
-
-    bool bIsPlacementGood = true;
-
-private:
     char defaultSpace = ' ';
     char hit = 'H';
     char miss = 'M';
 
-
+    bool bIsHitDefault;
+    bool bIsHitAlready;
 
 };
 

@@ -9,37 +9,35 @@ void AiPlayer::placeShips()
 {
     for (auto ship : v_Ships)
     {
-        while (!ship->bisPlaced)
+        if (!ship->bisPlaced)
         {
-            int min = 1;
-            int max = 2;
+            min = 0;
+            max = 1;
             int randomNumber = min + rand() % (( max - min ) + 1);
             bool direction = randomNumber;
-
-            setYPos();
-            setXPos();
-
-            map.placeShipInMap(yPos,xPos,ship->symbol,direction,ship->size);
-            if (map.bIsPlacementGood==true)
+            do
             {
-                int ypos = yPos-97;
-                for (int i = 0; i < ship->size; i++)
+                setYPos();
+                setXPos();
+                map.placeShipInMap(yPos,xPos,ship->symbol,direction,ship->size);
+            } while (!map.bIsPlacementGood);
+            int ypos = yPos-97;
+            for (int i = 0; i < ship->size; i++)
+            {
+                if (direction)
                 {
-                    if (direction)
-                    {
-                       ship->v_yPos.push_back(ypos+i);
-                       ship->v_xPos.push_back(xPos);
-                    }
-                    else
-                    {
-                        ship->v_xPos.push_back(xPos+i);
-                        ship->v_yPos.push_back(ypos);
-                    }
+                    ship->v_xPos.push_back(xPos);
+                    ship->v_yPos.push_back(ypos+i);
                 }
-                ship->bisHorizontal = direction;
-                ship->bisPlaced = true;
+                else
+                {
+                    ship->v_xPos.push_back(xPos+i);
+                    ship->v_yPos.push_back(ypos);
+                }
             }
+            ship->bisPlaced = true;
         }
+        else { break; }
     }
 }
 
@@ -53,18 +51,16 @@ void AiPlayer::fireShot()
 
 void AiPlayer::setYPos()
 {
-    int min = 0;
-    int max = 9;
-
+    min = 0;
+    max = 9;
     yPos = min + rand() % (( max - min ) + 1);
     yPos = yPos+97;
 }
 
 void AiPlayer::setXPos()
 {
-    int min = 0;
-    int max = 9;
-
+    min = 0;
+    max = 9;
     xPos = min + rand() % (( max - min ) + 1);
 }
 

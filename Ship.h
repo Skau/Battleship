@@ -6,16 +6,15 @@ class Ship
 {
 public:
     Ship();
+    ~Ship();
+    //variables
     std::string name;
-    char symbol;
-    bool bisHuman;
-    bool bisHorizontal;
-    bool bisPlaced;
-    bool bisDead;
     int healthLeft;
     int size;
     int numberPerPlayer;
-
+    char symbol;
+    bool bisPlaced;
+    bool bisDead;
     std::vector<int> v_xPos;
     std::vector<int> v_yPos;
 

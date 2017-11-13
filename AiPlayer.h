@@ -10,11 +10,17 @@ public:
     //functions
     void placeShips();
     void fireShot();
+
+private:
+    //functions
     void setYPos();
     void setXPos();
 
     //variables
     std::string name = "Computer";
+    int min = 0;
+    int max = 9;
+
 };
 
 #endif // APPLAYER_H

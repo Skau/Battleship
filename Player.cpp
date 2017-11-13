@@ -9,7 +9,6 @@ Player::Player()
 
 void Player::initializeShip(std::string nameOfShip, char picture, int shipSize, int number)
 {
-
     for (int i = 0; i < number; i++)
     {
         v_Ships.push_back(new Ship);

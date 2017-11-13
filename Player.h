@@ -14,20 +14,22 @@ public:
 
     //Functions
     void initializeShip(std::string nameOfShip, char picture, int shipSize, int number);
-    void setShipLocation();
     char getYPos();
     int getXPos();
     int getTotalShipsLeft();
     void setTotalShipsLeft();
 
-    //Variables
+    //variables
     std::vector<Ship*> v_Ships;
-    int totalShips;
 
 protected:
+
+    //variables
     int xPos;
     char yPos;
     int count = 0;
+    int totalShips;
+
 };
 
 #endif // PLAYER_H
