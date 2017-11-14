@@ -11,6 +11,14 @@ public:
     void placeShips();
     void fireShot();
 
+    //SMARTAI variables
+    bool bKillLastRound;
+    bool bHitLastRound;
+    bool bShotHorizontalPositive;
+    bool bShotVerticalPositive;
+    char lastYPos;
+    int lastXPos;
+
 private:
     //functions
     void setYPos();
