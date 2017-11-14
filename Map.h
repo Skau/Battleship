@@ -9,7 +9,7 @@ public:
 
     //functions
     void initializeMap();
-    void placeShotInMap(char yPos, int xPos);
+    bool placeShotInMap(char yPos, int xPos);
     void printMap(bool printShips);
     void placeShipInMap(char yPos, int xPos, char element, bool direction, int size);
 

@@ -10,19 +10,22 @@ public:
     //functions
     void placeShips();
     void fireShot();
-
-    //SMARTAI variables
-    bool bKillLastRound;
-    bool bHitLastRound;
-    bool bShotHorizontalPositive;
-    bool bShotVerticalPositive;
-    char lastYPos;
-    int lastXPos;
-
-private:
-    //functions
+    void smartShot();
     void setYPos();
     void setXPos();
+
+    //SMARTAI variables
+    bool bKillLastRound = false;
+    bool bHitLastRound = false;
+    bool bShotHorizontalPositive = true;
+    bool bShotVerticalPositive = false;
+    char lastHitYPos = ' ';
+    char lastYPos = ' ';
+    int lastHitXPos = 0;
+    int lastXPos = 0;
+    int shotsSinceLastHit = 0;
+
+private:
 
     //variables
     std::string name = "Computer";

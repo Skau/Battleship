@@ -52,7 +52,8 @@ void Game::damageShip(bool bDidDamage, bool isPlayer, char yPos, int xPos)
     int ypos = yPos-97;
     //if true do damage
     if (bDidDamage)
-    {   // if it's the player that shot
+    {
+        // if it's the player that shot
         if (isPlayer)
         {
             //iterate through ai ships
@@ -93,10 +94,14 @@ void Game::damageShip(bool bDidDamage, bool isPlayer, char yPos, int xPos)
                     {
                         //remove health
                         ship->healthLeft--;
+                        ai.bHitLastRound = true;
+                        ai.bKillLastRound = false;
                         //if the ships health is 0, mark it as dead
                         if (ship->healthLeft == 0)
                         {
                             ship->bisDead = true;
+                            ai.bKillLastRound = true;
+                            ai.bHitLastRound = false;
                         }
                         //break the loop because you can only hit one spot per shot
                         break;
@@ -121,22 +126,22 @@ void Game::gameLoop()
         std::cout << "\t\tPlayer map\n\n";
         human.map.printMap(1);
         std::cout << "\nYou have " << human.getTotalShipsLeft() << " ships left.\n";
-        for (auto ship : human.v_Ships)
-        {
-            if (!ship->bisDead)
-            {
-                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
-            }
-        }
+//        for (auto ship : human.v_Ships)
+//        {
+//            if (!ship->bisDead)
+//            {
+//                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
+//            }
+//        }
         std::cout << std::endl;
         std::cout << "AI have " << ai.getTotalShipsLeft() << " ships left.\n";
-        for (auto ship : ai.v_Ships)
-        {
-            if (!ship->bisDead)
-            {
-                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
-            }
-        }
+//        for (auto ship : ai.v_Ships)
+//        {
+//            if (!ship->bisDead)
+//            {
+//                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
+//            }
+//        }
         //prints AI map
         std::cout << "\t\tAI map\n\n";
         ai.map.printMap(1);
@@ -153,6 +158,7 @@ void Game::gameLoop()
             if (!ai.map.bIsHit)
             {
                 bIsShooting = true;
+                std::cout << "Already been fired at.\n";
             }
             //if the spot havent been hit already
             else
@@ -171,36 +177,64 @@ void Game::gameLoop()
         {
             break;
         }
-
         //ai turn to shoot
         bIsShooting = true;
         while (bIsShooting)
         {
             //sets the coordinates the ai wants to hit
-            ai.fireShot();
+            ai.smartShot();
             //places the shot in the map
-            human.map.placeShotInMap(ai.getYPos(), ai.getXPos());
+            if (!human.map.placeShotInMap(ai.getYPos(), ai.getXPos()))
+            {
+                ai.shotsSinceLastHit++;
+            }
+            else
+            {
+                ai.shotsSinceLastHit = 0;
+            }
             //if the spot is already been hit, the ai tries again
             if (!human.map.bIsHit)
             {
                 bIsShooting = true;
             }
-            //if the spot havent been hit already
             else
             {
-                //if the spot was a ship, damage it
-                if (human.map.bIsHitShip)
-                {
-                    damageShip(human.map.bIsHitShip, 1, ai.getYPos(),ai.getXPos());
-                }
-                //breaks out of the loop
                 bIsShooting = false;
             }
-            //if ai is out of ships, break the loop (game is over)
-            if (ai.getTotalShipsLeft() == 0)
+        }
+        //if the spot was a ship, damage it
+        if (human.map.bIsHitShip)
+        {
+            damageShip(human.map.bIsHitShip, 0, ai.getYPos(),ai.getXPos());
+            ai.lastHitXPos = ai.xPos;
+            ai.lastHitYPos = ai.yPos;
+        }
+        //if the spot was a miss
+        else
+        {
+            if (ai.bHitLastRound)
             {
-                break;
+                if (ai.bShotHorizontalPositive)
+                {
+                    ai.bShotHorizontalPositive = false;
+                }
+                else if (!ai.bShotHorizontalPositive)
+                {
+                    ai.bShotVerticalPositive = true;
+                }
+                else if (ai.bShotVerticalPositive)
+                {
+                    ai.bShotVerticalPositive = false;
+                }
             }
+        }
+        //breaks out of the loop
+        bIsShooting = false;
+
+        //if ai is out of ships, break the loop (game is over)
+        if (ai.getTotalShipsLeft() == 0)
+        {
+            break;
         }
     }
     /************************   END OF GAMELOOP   ************************/

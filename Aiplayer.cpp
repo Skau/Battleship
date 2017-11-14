@@ -49,6 +49,104 @@ void AiPlayer::fireShot()
     std::cout << "\n\nAI shoots at " << getYPos() << getXPos() << ".\n";
 }
 
+void AiPlayer::smartShot()
+{
+    bool bIsChoosing = true;
+
+    while (bIsChoosing)
+    {
+        if (bKillLastRound)
+        {
+            setYPos();
+            setXPos();
+            bIsChoosing = false;
+        }
+        else if (bHitLastRound)
+        {
+            if (shotsSinceLastHit == 0)
+            {
+                yPos = lastHitYPos+1;
+                xPos = lastHitXPos;
+                int ypos = yPos-97;
+                if ((ypos > -1 && ypos < 10) && (xPos > -1 && xPos < 10))
+                {
+                    bIsChoosing = false;
+                    bShotHorizontalPositive = false;
+                }
+                else
+                {
+                    shotsSinceLastHit++;
+                }
+            }
+            else if (shotsSinceLastHit == 1)
+            {
+                yPos = lastHitYPos-1;
+                xPos = lastHitXPos;
+                int ypos = yPos-97;
+
+                if ((ypos > -1 && ypos < 10) && (xPos > -1 && xPos < 10))
+                {
+                    bIsChoosing = false;
+                    bShotVerticalPositive = true;
+                }
+                else
+                {
+                    shotsSinceLastHit++;
+                }
+            }
+            else if (shotsSinceLastHit == 2)
+            {
+                yPos = lastHitYPos;
+                xPos = lastHitXPos+1;
+                int ypos = yPos-97;
+                if ((ypos > -1 && ypos < 10) && (xPos > -1 && xPos < 10))
+                {
+                    bIsChoosing = false;
+                }
+                else
+                {
+                    shotsSinceLastHit++;
+                }
+            }
+            else if (shotsSinceLastHit == 3)
+            {
+                yPos = lastHitYPos;
+                xPos = lastHitXPos-1;
+                int ypos = yPos-97;
+                if ((ypos > -1 && ypos < 10) && (xPos > -1 && xPos < 10))
+                {
+                    bIsChoosing = false;
+                    setYPos();
+                    setXPos();
+                    bShotHorizontalPositive = true;
+                    bIsChoosing = false;
+                }
+                else
+                {
+                    setYPos();
+                    setXPos();
+                    bShotHorizontalPositive = true;
+                    bIsChoosing = false;
+                }
+            }
+            else
+            {
+                setYPos();
+                setXPos();
+                bShotHorizontalPositive = true;
+                bIsChoosing = false;
+            }
+        }
+        else
+        {
+            setXPos();
+            setYPos();
+            bIsChoosing = false;
+        }
+    }
+    std::cout << "\n\nAI shoots at " << getYPos() << getXPos() << ".\n";
+}
+
 void AiPlayer::setYPos()
 {
     min = 0;

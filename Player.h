@@ -21,12 +21,12 @@ public:
 
     //variables
     std::vector<Ship*> v_Ships;
+    int xPos;
+    char yPos;
 
 protected:
 
     //variables
-    int xPos;
-    char yPos;
     int count = 0;
     int totalShips;
 

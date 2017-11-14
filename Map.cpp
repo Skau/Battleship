@@ -121,7 +121,7 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
     }
 }
 
-void Map::placeShotInMap(char yPos, int xPos)
+bool Map::placeShotInMap(char yPos, int xPos)
 {
     int ypos = yPos-97;
     //if the coordinates haven't been hit before
@@ -135,6 +135,7 @@ void Map::placeShotInMap(char yPos, int xPos)
             mapArea[xPos][ypos].bHasBeenShotAt = true;
             bIsHit = true;
             bIsHitShip = true;
+            return true;
         }
         else
         {
@@ -143,14 +144,18 @@ void Map::placeShotInMap(char yPos, int xPos)
             mapArea[xPos][ypos].bHasBeenShotAt = true;
             bIsHit = true;
             bIsHitDefault = true;
+            bIsHitShip = false;
+            return false;
         }
     }
     else
     {
         //return false if it's already hit
-        std::cout << "Already been fired at.\n";
         bIsHit = false;
         bIsHitAlready = true;
+        bIsHitDefault = false;
+        bIsHitShip = false;
+        return false;
     }
 }
 
