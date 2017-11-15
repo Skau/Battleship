@@ -27,7 +27,7 @@ public:
 
 private:
 
-    //variables
+    //used for debugging purposes
     std::string name = "Computer";
 };
 

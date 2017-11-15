@@ -17,7 +17,7 @@ private:
     void setYPos();
     void setXPos();
 
-    //variables
+    //used for debugging purposes
     std::string name = "Human";
 
 };

@@ -26,7 +26,6 @@ public:
     int min = 0;
     int max = 9;
 
-
 protected:
 
     //variables

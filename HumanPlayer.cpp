@@ -72,7 +72,7 @@ void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
     else
     {
         bool direction;
-
+        int randomNumber;
         for (auto ship : v_Ships)
         {
             if (!ship->bisPlaced)
@@ -80,7 +80,7 @@ void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
                 do
                 {
                     max = 1;
-                    int randomNumber = min + rand() % (( max - min ) + 1);
+                    randomNumber = min + rand() % (( max - min ) + 1);
                     direction = randomNumber;
                     setYPos();
                     setXPos();
@@ -99,6 +99,7 @@ void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
                         ship->v_xPos.push_back(xPos+i);
                         ship->v_yPos.push_back(ypos);
                     }
+
                 }
                 ship->bisPlaced = true;
             }

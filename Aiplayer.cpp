@@ -8,7 +8,7 @@ AiPlayer::AiPlayer()
 void AiPlayer::placeShips()
 {
     bool direction;
-
+    int randomNumber;
     for (auto ship : v_Ships)
     {
         if (!ship->bisPlaced)
@@ -16,7 +16,7 @@ void AiPlayer::placeShips()
             do
             {
                 max = 1;
-                int randomNumber = min + rand() % (( max - min ) + 1);
+                randomNumber = min + rand() % (( max - min ) + 1);
                 direction = randomNumber;
                 setYPos();
                 setXPos();
