@@ -23,6 +23,9 @@ public:
     std::vector<Ship*> v_Ships;
     int xPos;
     char yPos;
+    int min = 0;
+    int max = 9;
+
 
 protected:
 

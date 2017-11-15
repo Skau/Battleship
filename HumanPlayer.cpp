@@ -71,16 +71,17 @@ void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
     }
     else
     {
+        bool direction;
+
         for (auto ship : v_Ships)
         {
             if (!ship->bisPlaced)
             {
-                int min = 0;
-                int max = 1;
-                int randomNumber = min + rand() % (( max - min ) + 1);
-                bool direction = randomNumber;
                 do
                 {
+                    max = 1;
+                    int randomNumber = min + rand() % (( max - min ) + 1);
+                    direction = randomNumber;
                     setYPos();
                     setXPos();
                     map.placeShipInMap(yPos,xPos,ship->symbol,direction,ship->size);
@@ -101,7 +102,6 @@ void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
                 }
                 ship->bisPlaced = true;
             }
-            else { break; }
         }
     }
 }

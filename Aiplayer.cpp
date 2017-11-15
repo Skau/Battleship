@@ -7,16 +7,17 @@ AiPlayer::AiPlayer()
 
 void AiPlayer::placeShips()
 {
+    bool direction;
+
     for (auto ship : v_Ships)
     {
         if (!ship->bisPlaced)
         {
-            min = 0;
-            max = 1;
-            int randomNumber = min + rand() % (( max - min ) + 1);
-            bool direction = randomNumber;
             do
             {
+                max = 1;
+                int randomNumber = min + rand() % (( max - min ) + 1);
+                direction = randomNumber;
                 setYPos();
                 setXPos();
                 map.placeShipInMap(yPos,xPos,ship->symbol,direction,ship->size);
@@ -37,7 +38,6 @@ void AiPlayer::placeShips()
             }
             ship->bisPlaced = true;
         }
-        else { break; }
     }
 }
 
@@ -145,7 +145,6 @@ void AiPlayer::smartShot()
 
 void AiPlayer::setYPos()
 {
-    min = 0;
     max = 9;
     yPos = min + rand() % (( max - min ) + 1);
     yPos = yPos+97;
@@ -153,7 +152,6 @@ void AiPlayer::setYPos()
 
 void AiPlayer::setXPos()
 {
-    min = 0;
     max = 9;
     xPos = min + rand() % (( max - min ) + 1);
 }

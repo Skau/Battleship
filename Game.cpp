@@ -30,7 +30,7 @@ void Game::initializeGame()
     int input;
     std::cout << "Do you want to place your ships manually, or let the game do it for you?\nDon't worry, the computer won't remember where he placed your ships ;)\n";
     std::cout << "1. Manual\n";
-    std::cout << "2. Automatic (Works fine 98% of the time)\n";
+    std::cout << "2. Automatic\n";
     std::cin >> input;
     if (input == 1) { human.placeShips(true,ROWS,COLUMNS); }
     else { human.placeShips(false,ROWS,COLUMNS); }
