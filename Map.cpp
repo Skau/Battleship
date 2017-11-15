@@ -6,11 +6,11 @@ Map::Map()
 
 }
 
-void Map::initializeMap()
+void Map::initializeMap(int rows, int columns)
 {
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < rows; i++)
     {
-        for(int j = 0; j < 10; j++)
+        for(int j = 0; j < columns; j++)
         {
             mapArea[i][j].element = defaultSpace;
             mapArea[i][j].bHasBeenShotAt = false;
@@ -159,25 +159,25 @@ bool Map::placeShotInMap(char yPos, int xPos)
     }
 }
 
-void Map::printMap(bool printShips)
+void Map::printMap(bool printShips, int rows, int columns)
 {
     std::cout << "     ";
-    for (char i = 'A'; i < ROWS+65; i++)
+    for (char i = 'A'; i < rows+65; i++)
     {
         std::cout << i << "   ";
     }
     std::cout << std::endl;
     std::cout << "  +";
-    for (int i = 0; i < ROWS; i++)
+    for (int i = 0; i < rows; i++)
     {
         std::cout << "----";
     }
     std::cout << "+\n";
 
-    for (int i = 0; i < ROWS; i++)
+    for (int i = 0; i < rows; i++)
     {
         std::cout << i << " |  ";
-        for (int j = 0; j < COLUMNS; j++)
+        for (int j = 0; j < columns; j++)
         {
             if (printShips)
             {
@@ -194,7 +194,7 @@ void Map::printMap(bool printShips)
                 }
         }
         std::cout << "\n  +";
-        for (int i = 0; i < ROWS; i++)
+        for (int i = 0; i < rows; i++)
         {
             std::cout << "----";
         }

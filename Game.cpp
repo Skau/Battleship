@@ -8,19 +8,22 @@ Game::Game()
 
 void Game::initializeGame()
 { 
+
     //human init
     human.initializeShip("battleship",'B',4,1);
     human.initializeShip("cruiser",'C',3,2);
     human.initializeShip("destroyer",'D',2,3);
     human.initializeShip("submarine",'S',1,4);
-    human.map.initializeMap();
+
+    human.map.initializeMap(ROWS,COLUMNS);
 
     //ai init
     ai.initializeShip("battleship",'B',4,1);
     ai.initializeShip("cruiser",'C',3,2);
     ai.initializeShip("destroyer",'D',2,3);
     ai.initializeShip("submarine",'S',1,4);
-    ai.map.initializeMap();
+
+    ai.map.initializeMap(ROWS,COLUMNS);
     ai.placeShips();
 
     //automatic or manual placement of ships
@@ -29,8 +32,8 @@ void Game::initializeGame()
     std::cout << "1. Manual\n";
     std::cout << "2. Automatic (Works fine 98% of the time)\n";
     std::cin >> input;
-    if (input == 1) { human.placeShips(true); }
-    else { human.placeShips(false); }
+    if (input == 1) { human.placeShips(true,ROWS,COLUMNS); }
+    else { human.placeShips(false,ROWS,COLUMNS); }
 
     //starts the gameloop
     gameLoop();
@@ -124,9 +127,8 @@ void Game::gameLoop()
     {
         //prints players map first
         std::cout << "\t\tPlayer map\n\n";
-        human.map.printMap(1);
-        std::cout << "\nYou have " << human.getTotalShipsLeft() << " ships left.";
-        std::cout << "\n\nAI shoot at " << ai.getYPos() << ai.getXPos() << ".";
+        human.map.printMap(1,ROWS,COLUMNS);
+        std::cout << "\nYou have " << human.getTotalShipsLeft() << " ships left.\n\n";
 //        for (auto ship : human.v_Ships)
 //        {
 //            if (!ship->bisDead)
@@ -134,7 +136,6 @@ void Game::gameLoop()
 //                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
 //            }
 //        }
-        std::cout << "\n\nYou shoot at " << human.getYPos() << human.getXPos() << ".\n\n";
         std::cout << "AI have " << ai.getTotalShipsLeft() << " ships left.\n\n";
 //        for (auto ship : ai.v_Ships)
 //        {
@@ -145,7 +146,7 @@ void Game::gameLoop()
 //        }
         //prints AI map
         std::cout << "\t\tAI map\n\n";
-        ai.map.printMap(0);
+        ai.map.printMap(0,ROWS,COLUMNS);
 
         /************************   HUMAN TURN   ************************/
         //human turn to shoot
@@ -245,14 +246,14 @@ void Game::gameLoop()
     //check to see who won
     if (human.getTotalShipsLeft() == 0)
     {
-        human.map.printMap(1);
-        ai.map.printMap(1);
+        human.map.printMap(1,ROWS,COLUMNS);
+        ai.map.printMap(1,ROWS,COLUMNS);
         std::cout << "You lost!\n";
     }
     else
     {
-        human.map.printMap(1);
-        ai.map.printMap(1);
+        human.map.printMap(1,ROWS,COLUMNS);
+        ai.map.printMap(1,ROWS,COLUMNS);
         std::cout << "You won!\n";
     }
 }

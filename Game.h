@@ -23,10 +23,11 @@ private:
     void gameLoop();
     void damageShip(bool bDidDamage, bool isPlayer, char yPos, int xPos);
 
-
     //variables
     int inputX;
     char inputY;
+    const int ROWS = 10;
+    const int COLUMNS = 10;
 
 };
 

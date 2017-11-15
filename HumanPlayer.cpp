@@ -5,14 +5,14 @@ HumanPlayer::HumanPlayer()
 
 }
 
-void HumanPlayer::placeShips(bool bIsManualPlacement)
+void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
 {
     if (bIsManualPlacement)
     {
         int input;
         bool direction;
         bool bisChoosing;
-        map.printMap(1);
+        map.printMap(1,rows,columns);
         for (auto ship : v_Ships)
         {
             while (!ship->bisPlaced)
@@ -64,7 +64,7 @@ void HumanPlayer::placeShips(bool bIsManualPlacement)
                     }
                     ship->bisPlaced = true;
                     system("cls");
-                    map.printMap(1);
+                    map.printMap(1,rows,columns);
                 }
             }
         }

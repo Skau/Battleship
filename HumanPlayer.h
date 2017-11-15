@@ -8,7 +8,7 @@ public:
     HumanPlayer();
 
     //functions
-    void placeShips(bool bIsManualPlacement);
+    void placeShips(bool bIsManualPlacement, int rows, int columns);
     void fireShot();
 
 private:

@@ -8,9 +8,9 @@ public:
     Map();
 
     //functions
-    void initializeMap();
+    void initializeMap(int rows, int columns);
     bool placeShotInMap(char yPos, int xPos);
-    void printMap(bool printShips);
+    void printMap(bool printShips, int rows, int columns);
     void placeShipInMap(char yPos, int xPos, char element, bool direction, int size);
 
     //variables
@@ -27,10 +27,6 @@ private:
         bool bIsShip;
         bool bHasBeenShotAt;
     }; mapElements mapArea[10][10];
-
-
-    const int ROWS = 10;
-    const int COLUMNS = 10;
 
     char defaultSpace = ' ';
     char hit = 'H';
