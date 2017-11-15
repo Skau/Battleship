@@ -125,7 +125,8 @@ void Game::gameLoop()
         //prints players map first
         std::cout << "\t\tPlayer map\n\n";
         human.map.printMap(1);
-        std::cout << "\nYou have " << human.getTotalShipsLeft() << " ships left.\n";
+        std::cout << "\nYou have " << human.getTotalShipsLeft() << " ships left.";
+        std::cout << "\n\nAI shoot at " << ai.getYPos() << ai.getXPos() << ".";
 //        for (auto ship : human.v_Ships)
 //        {
 //            if (!ship->bisDead)
@@ -133,8 +134,8 @@ void Game::gameLoop()
 //                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
 //            }
 //        }
-        std::cout << std::endl;
-        std::cout << "AI have " << ai.getTotalShipsLeft() << " ships left.\n";
+        std::cout << "\n\nYou shoot at " << human.getYPos() << human.getXPos() << ".\n\n";
+        std::cout << "AI have " << ai.getTotalShipsLeft() << " ships left.\n\n";
 //        for (auto ship : ai.v_Ships)
 //        {
 //            if (!ship->bisDead)
@@ -144,9 +145,10 @@ void Game::gameLoop()
 //        }
         //prints AI map
         std::cout << "\t\tAI map\n\n";
-        ai.map.printMap(1);
+        ai.map.printMap(0);
 
-        //human shoots first
+        /************************   HUMAN TURN   ************************/
+        //human turn to shoot
         bIsShooting = true;
         while (bIsShooting)
         {
@@ -177,6 +179,7 @@ void Game::gameLoop()
         {
             break;
         }
+        /************************   COMPUTER TURN   ************************/
         //ai turn to shoot
         bIsShooting = true;
         while (bIsShooting)

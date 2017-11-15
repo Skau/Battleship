@@ -116,10 +116,6 @@ void AiPlayer::smartShot()
                 if ((ypos > -1 && ypos < 10) && (xPos > -1 && xPos < 10))
                 {
                     bIsChoosing = false;
-                    setYPos();
-                    setXPos();
-                    bShotHorizontalPositive = true;
-                    bIsChoosing = false;
                 }
                 else
                 {

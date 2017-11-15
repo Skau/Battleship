@@ -28,6 +28,10 @@ private:
         bool bHasBeenShotAt;
     }; mapElements mapArea[10][10];
 
+
+    const int ROWS = 10;
+    const int COLUMNS = 10;
+
     char defaultSpace = ' ';
     char hit = 'H';
     char miss = 'M';

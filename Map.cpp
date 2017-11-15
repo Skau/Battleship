@@ -161,12 +161,23 @@ bool Map::placeShotInMap(char yPos, int xPos)
 
 void Map::printMap(bool printShips)
 {
-    std::cout << "     A   B   C   D   E   F   G   H   I   J" << std::endl;
-    std::cout << "   +---------------------------------------+" << std::endl;
-    for (int i = 0; i < 10; i++)
+    std::cout << "     ";
+    for (char i = 'A'; i < ROWS+65; i++)
     {
-        std::cout << " " << i << " | ";
-        for (int j = 0; j < 10; j++)
+        std::cout << i << "   ";
+    }
+    std::cout << std::endl;
+    std::cout << "  +";
+    for (int i = 0; i < ROWS; i++)
+    {
+        std::cout << "----";
+    }
+    std::cout << "+\n";
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        std::cout << i << " |  ";
+        for (int j = 0; j < COLUMNS; j++)
         {
             if (printShips)
             {
@@ -182,7 +193,12 @@ void Map::printMap(bool printShips)
                     std::cout << ' ' << " | ";
                 }
         }
-        std::cout << "\n   +---------------------------------------+" << std::endl;
+        std::cout << "\n  +";
+        for (int i = 0; i < ROWS; i++)
+        {
+            std::cout << "----";
+        }
+        std::cout << "+\n";
     }
 }
 
