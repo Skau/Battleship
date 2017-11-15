@@ -28,8 +28,6 @@ void Game::initializeGame()
 
     //automatic or manual placement of ships
     int input;
-    std::cout << "SMARTSHOT: 0\nRANDOM SHOTS 1\n";
-    std::cin >> smartShot;
     std::cout << "Do you want to place your ships manually, or let the game do it for you?\nDon't worry, the computer won't remember where he placed your ships ;)\n";
     std::cout << "1. Manual\n";
     std::cout << "2. Automatic\n";
