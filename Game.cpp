@@ -1,44 +1,39 @@
 #include "Game.h"
 
-
-Game::Game()
-{
-
-}
-
 void Game::initializeGame()
 { 
 
-    //human init
+    //initializing all human ships
     human.initializeShip("battleship",'B',4,1);
     human.initializeShip("cruiser",'C',3,2);
     human.initializeShip("destroyer",'D',2,3);
     human.initializeShip("submarine",'S',1,4);
-
+    //initializing the humans map
     human.map.initializeMap(ROWS,COLUMNS);
-
-    //ai init
+    //initializing all computer ships
     ai.initializeShip("battleship",'B',4,1);
     ai.initializeShip("cruiser",'C',3,2);
     ai.initializeShip("destroyer",'D',2,3);
     ai.initializeShip("submarine",'S',1,4);
-
+    //initializing the computers map
     ai.map.initializeMap(ROWS,COLUMNS);
+    //ai places his ship
     ai.placeShips();
 
-    //automatic or manual placement of ships
+    //you can choose between manual and automatic placement of ships
     int input;
-    std::cout << "Do you want to place your ships manually, or let the game do it for you?\nDon't worry, the computer won't remember where he placed your ships ;)\n";
+    std::cout << "Do you want to place your ships manually, or let the game do it for you?\n";
     std::cout << "1. Manual\n";
     std::cout << "2. Automatic\n";
     std::cin >> input;
+    //the true or false parameter decides if its manual or automatic
     if (input == 1) { human.placeShips(true,ROWS,COLUMNS); }
     else { human.placeShips(false,ROWS,COLUMNS); }
 
     //starts the gameloop
     gameLoop();
 
-    //when the loop is over delete the ships
+    //when the loop is over delete all ships and clear the vectors
     for (unsigned int i = 0; i <= human.v_Ships.size(); i++)
     {
         delete (human.v_Ships.at(i));
@@ -50,7 +45,8 @@ void Game::initializeGame()
     }
     ai.v_Ships.clear();
 }
-
+//used to actually damage the ships. if it was a miss,
+//it immediately goes out of the function again(because of first if check)
 void Game::damageShip(bool bDidDamage, bool isPlayer, char yPos, int xPos)
 {
     int ypos = yPos-97;
@@ -118,7 +114,7 @@ void Game::damageShip(bool bDidDamage, bool isPlayer, char yPos, int xPos)
     }
 }
 
-
+//the game loop
 void Game::gameLoop()
 {
     bool bisPlaying = true;
@@ -130,24 +126,27 @@ void Game::gameLoop()
         std::cout << "\t\tPlayer map\n\n";
         human.map.printMap(1,ROWS,COLUMNS);
         std::cout << "\nYou have " << human.getTotalShipsLeft() << " ships left.\n\n";
-        for (auto ship : human.v_Ships)
-        {
-            if (!ship->bisDead)
-            {
-                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
-            }
-        }
-        std::cout << "AI have " << ai.getTotalShipsLeft() << " ships left.\n\n";
-        for (auto ship : ai.v_Ships)
-        {
-            if (!ship->bisDead)
-            {
-                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
-            }
-        }
+
+        /*USED FOR DEBUGGING (Uncommenting this actually prints all ships and its current health left)*/
+//        for (auto ship : human.v_Ships)
+//        {
+//            if (!ship->bisDead)
+//            {
+//                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
+//            }
+//        }
+//        std::cout << "AI have " << ai.getTotalShipsLeft() << " ships left.\n\n";
+//        for (auto ship : ai.v_Ships)
+//        {
+//            if (!ship->bisDead)
+//            {
+//                std::cout << "Ship name: " << ship->name << ", health left: "  << ship->healthLeft << std::endl;
+//            }
+//        }
+
         //prints AI map
         std::cout << "\t\tAI map\n\n";
-        ai.map.printMap(1,ROWS,COLUMNS);
+        ai.map.printMap(0,ROWS,COLUMNS);
 
         /************************   HUMAN TURN   ************************/
         //human turn to shoot
@@ -189,10 +188,12 @@ void Game::gameLoop()
             //sets the coordinates the ai wants to hit
             ai.smartShot();
             //places the shot in the map
+            //if it's not a hit, increment the counter
             if (!human.map.placeShotInMap(ai.getYPos(), ai.getXPos()))
             {
                 ai.shotsSinceLastHit++;
             }
+            //if it's a hit, reset the counter
             else
             {
                 ai.shotsSinceLastHit = 0;
@@ -217,6 +218,7 @@ void Game::gameLoop()
             //if the spot was a miss
             else
             {
+                //sets which direction to shoot next
                 if (ai.bHitLastRound)
                 {
                     if (ai.bShotHorizontalPositive)
@@ -243,6 +245,7 @@ void Game::gameLoop()
     /************************   END OF GAMELOOP   ************************/
 
     //check to see who won
+    //and prints the finished maps (all ships for both etc)
     if (human.getTotalShipsLeft() == 0)
     {
         human.map.printMap(1,ROWS,COLUMNS);

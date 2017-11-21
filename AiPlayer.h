@@ -5,14 +5,10 @@
 class AiPlayer : public Player
 {
 public:
-    AiPlayer();
-
+    AiPlayer(){}
     //functions
     void placeShips();
-    void fireShot();
     void smartShot();
-    void setYPos();
-    void setXPos();
 
     //SMARTAI variables
     bool bKillLastRound = false;
@@ -26,9 +22,10 @@ public:
     int shotsSinceLastHit = 0;
 
 private:
+    void fireShot();
+    void setYPos();
+    void setXPos();
 
-    //used for debugging purposes
-    std::string name = "Computer";
 };
 
 #endif // APPLAYER_H

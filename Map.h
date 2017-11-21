@@ -5,7 +5,7 @@
 class Map
 {
 public:
-    Map();
+    Map(){}
 
     //functions
     void initializeMap(int rows, int columns);
@@ -31,7 +31,6 @@ private:
     char defaultSpace = ' ';
     char hit = 'H';
     char miss = 'M';
-
     bool bIsHitDefault;
     bool bIsHitAlready;
 

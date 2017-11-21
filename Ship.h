@@ -9,10 +9,10 @@ public:
     ~Ship();
     //variables
     std::string name;
-    int healthLeft;
+    char symbol;
     int size;
     int numberPerPlayer;
-    char symbol;
+    int healthLeft;
     bool bisPlaced;
     bool bisDead;
     std::vector<int> v_xPos;

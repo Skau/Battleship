@@ -1,11 +1,7 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map()
-{
-
-}
-
+//initalizes an array with blanks
 void Map::initializeMap(int rows, int columns)
 {
     for(int i = 0; i < rows; i++)
@@ -18,27 +14,37 @@ void Map::initializeMap(int rows, int columns)
         }
     }
 }
-
+//this is the function that both the human and ai uses for placing their ships
+//it basically starts by checking if theres a ship there.
+//then it iterates through which direction to place the ship by counting
+//from the location the user wants to place their ships
+//if the ship cannot fit in a specific location, it tries placing it the other way
+//it works fine in 95% of scenarios.
+//it's not the best solutions
 void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int size)
 {
     int ypos = yPos-97;
     int count = 0;
 
-    //true = horizontal
+    //used for horizontal placement
     if (direction)
     {
+        //loop depends on the ships size
         for (int i = 0; i < size; i++)
-        {
+        {   //if theres no ship there
             if ((!mapArea[xPos][ypos+i].bIsShip) && (mapArea[xPos][ypos+i].element == defaultSpace))
             {
+                //increment the counter
                 if (ypos+i < 11)
                 {
                     count++;
                 }
             }
         }
+        //if the count is the same as the ship
         if (count == size)
         {
+            //place the ship
             for (int i = 0; i < size; i++)
             {
                 mapArea[xPos][ypos+i].element = element;
@@ -46,6 +52,7 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
             }
             bIsPlacementGood = true;
         }
+        //else try another direction
         else
         {
             count = 0;
@@ -65,12 +72,14 @@ void Map::placeShipInMap(char yPos, int xPos, char element, bool direction, int 
                 }
                 bIsPlacementGood = true;
             }
+            //if it doesnt work, the player or ai has to try again
             else
             {
                 bIsPlacementGood = false;
             }
         }
     }
+    //used for vertical placement (exact same as above)
     else
     {
         count = 0;
@@ -159,6 +168,8 @@ bool Map::placeShotInMap(char yPos, int xPos)
     }
 }
 
+//prints the map
+//i tried my best to use as many loops as possible during printing
 void Map::printMap(bool printShips, int rows, int columns)
 {
     std::cout << "     ";
@@ -179,10 +190,12 @@ void Map::printMap(bool printShips, int rows, int columns)
         std::cout << i << " |  ";
         for (int j = 0; j < columns; j++)
         {
+            //if it's the humans map, print the ships too
             if (printShips)
             {
                 std::cout << mapArea[i][j].element << " | ";
             }
+            //if it's the computers map, print only the hits and misses
             else
                 if (mapArea[i][j].element == hit || mapArea[i][j].element == miss )
                 {

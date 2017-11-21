@@ -8,7 +8,7 @@
 class Player
 {
 public:
-    Player();
+    Player(){}
 
     Map map;
 
@@ -23,14 +23,15 @@ public:
     std::vector<Ship*> v_Ships;
     int xPos;
     char yPos;
-    int min = 0;
-    int max = 9;
+
 
 protected:
 
     //variables
     int count = 0;
     int totalShips;
+    int min = 0;
+    int max = 9;
 
 };
 

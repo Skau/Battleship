@@ -5,7 +5,7 @@
 class HumanPlayer : public Player
 {
 public:
-    HumanPlayer();
+    HumanPlayer(){}
 
     //functions
     void placeShips(bool bIsManualPlacement, int rows, int columns);
@@ -16,9 +16,6 @@ private:
     //these two functions are only used to get random numbers for the automatic placement of ships
     void setYPos();
     void setXPos();
-
-    //used for debugging purposes
-    std::string name = "Human";
 
 };
 

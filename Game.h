@@ -9,8 +9,7 @@
 class Game
 {
 public:
-    Game();
-
+    Game(){}
     AiPlayer ai;
     HumanPlayer human;
 

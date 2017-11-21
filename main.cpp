@@ -7,11 +7,14 @@ bool playAgain();
 
 int main()
 {
+    //declaring variables
     srand(time(0));
     bool bPlayAgain = true;
+    //instantiating the game object
     Game game;
 
     std::cout << "Welcome to Battleships!\n\n";
+    //the main loop
     while (bPlayAgain)
     {
         game.initializeGame();
@@ -20,7 +23,7 @@ int main()
 
     return 0;
 }
-
+//function to ask if you want to play again
 bool playAgain()
 {
     std::string input;

@@ -1,20 +1,18 @@
 #include "HumanPlayer.h"
 
-HumanPlayer::HumanPlayer()
-{
-
-}
-
 void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
 {
+    //manual placement of ships
     if (bIsManualPlacement)
     {
         int input;
         bool direction;
         bool bisChoosing;
         map.printMap(1,rows,columns);
+        //loops through all ships
         for (auto ship : v_Ships)
         {
+            //works exactly like the automatic placement, only that here i am using input values instead of random values
             while (!ship->bisPlaced)
             {
                 if (map.bIsPlacementGood==false){std::cout << "Space occupied\n";}
@@ -69,6 +67,7 @@ void HumanPlayer::placeShips(bool bIsManualPlacement, int rows, int columns)
             }
         }
     }
+    //automatic placement of ships works exactly like the manual version, only with random numbers (this is the exact same code used for AiPlayer)
     else
     {
         bool direction;
