@@ -20,7 +20,6 @@ int main()
         game.initializeGame();
         bPlayAgain = playAgain();
     }
-
     return 0;
 }
 //function to ask if you want to play again
@@ -47,7 +46,7 @@ bool playAgain()
 /*
  * Game seems to crash when you want to play again. Either it's something not being reset re-init and/or it's something not being initialized correctly on re-init.
  * Once in a while a ship that gets hit does not lose health. It always affects all the elements after the initial placement element. Aka never square 1 of a ship(placement square), but 2,3 and 4.
- * Need to implement Smart AI (that doesn't just shoot randomly). If AI gets a hit, he should shoot close to the place he hit next round. Possible solution underneath.
- * Game still sometimes hangs at the start because of the random placements of ships.
+ * Need to implement Smart AI is implemented, but could be more optimized.
+ * Game still sometimes hangs at the start. I know it's the do while loop when placing ships that never ends.
 */
 
