@@ -54,6 +54,7 @@ void AiPlayer::fireShot()
 }
 //here i tried to implement a smartshot, but it is quiet complicated and not very well done (in my opinion).
 //it works 90% of the time. it was still a pretty fun project to try, i learned a lot.
+//SMART AI(tm)
 void AiPlayer::smartShot()
 {
     bool bIsChoosing = true;
